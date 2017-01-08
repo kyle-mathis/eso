@@ -1,0 +1,9 @@
+<Bindings>
+  <Layer name="SI_KEYBINDINGS_LAYER_GENERAL">
+    <Category name="|cFFAA33CraftStore|r">
+      <Action name="SHOW_CS_WINDOW">
+        <Down>CS.ShowMain()</Down>
+      </Action>
+    </Category>
+  </Layer>
+</Bindings>

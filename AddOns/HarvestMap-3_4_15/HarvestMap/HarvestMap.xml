@@ -1,0 +1,131 @@
+<GuiXml>
+	<Controls>
+		<Line name="HarvestLink" thickness="8" virtual="true"/>
+		<Texture name="HM_MapTile" textureFile="HarvestMap/Textures/undiscovered.dds" level="2" layer="0" virtual="true" />
+		<Texture name="HM_CompassPin" pixelRoundingEnabled="false" hidden="true" virtual="true" />
+		<Control name ="HM_WorldPin" virtual="true" >
+			<Controls>
+				<Texture name="$(parent)Beam" />
+				<Texture name="$(parent)Icon" />
+			</Controls>
+		</Control>
+		<TopLevelControl name="HM_WorldPins" layer="0" level="0">
+			<Controls>
+				<Control name="$(parent)Measurement" />
+			</Controls>
+		</TopLevelControl>
+		<TopLevelControl name="HarvestFarmControl" inherits="ZO_WorldMapInfoContent" >
+			<Controls>
+				<Control name="$(parent)Pane" inherits="ZO_ScrollContainer">
+					<Anchor point="TOPLEFT" offsetX="20"/>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Control>
+			</Controls>
+		</TopLevelControl>
+		<TopLevelControl name="HarvestFarmCompass" mouseEnabled="true" movable="true" hidden="true">
+			<Anchor point="TOPLEFT" offsetX="0" offsetY="0" />
+			<Dimensions x="180" y="232"/>
+			<Controls>
+				<Backdrop name="$(parent)BG" inherits="ZO_DefaultBackdrop" >
+					<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0" />
+					<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="0" />
+				</Backdrop>
+				<Button name="$(parent)Close" text="Close" inherits="ZO_CloseButton" >
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)"  relativePoint="TOPRIGHT" offsetX="-4" offsetY="4" />
+					<OnClicked>
+						Harvest.SetFarmingInterfaceHidden(true)
+						HarvestFarm.interfaceCheckbox:UpdateValue()
+					</OnClicked>
+				</Button>
+				
+				<Texture name="$(parent)Arrow" textureFile="HarvestMap/Textures/Arrow/arrow.dds" >
+					<Anchor point="BOTTOM" relativeTo="$(parent)" relativePoint="TOP" offsetX="0" offsetY="64" />
+					<Dimensions x="180" y="180"/>
+				</Texture>
+				
+				<Label name="$(parent)DistanceText" text="Distance to the next resource:" font="ZoFontGame" color="FFFFFF" horizontalAlignment="LEFT" >
+					<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="16" offsetY="20" />
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-16" offsetY="20" />
+				</Label>
+				<Label name="$(parent)Distance" font="ZoFontGame" color="FFFFFF" text="asd" horizontalAlignment="RIGHT" >
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)DistanceText"  relativePoint="BOTTOMRIGHT" offsetX="-2" offsetY="0" />
+				</Label>
+				
+				<Label name="$(parent)StatsText" text="Nodes per minute:" font="ZoFontGame" color="FFFFFF" horizontalAlignment="LEFT" >
+					<Anchor point="TOPLEFT" relativeTo="$(parent)DistanceText" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="24" />
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)DistanceText" relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="24" />
+				</Label>
+				<Label name="$(parent)Stats" font="ZoFontGame" color="FFFFFF" text="123.23" horizontalAlignment="RIGHT" >
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)StatsText"  relativePoint="BOTTOMRIGHT" offsetX="-2" offsetY="0" />
+				</Label>
+				
+				<Button name="$(parent)ArrowCheckButton" inherits="ZO_CheckButton" >
+					<Anchor point="TOPLEFT" relativeTo="$(parent)StatsText"  relativePoint="BOTTOMLEFT" offsetX="0" offsetY="24" />
+				</Button>
+				<Label name="$(parent)ArrowCheckText" font="ZoFontGame" color="FFFFFF" text="Show Arrow" horizontalAlignment="LEFT" >
+					<Anchor point="TOPLEFT" relativeTo="$(parent)ArrowCheckButton"  relativePoint="TOPRIGHT" offsetX="4" offsetY="-2" />
+				</Label>
+				
+				
+				<Button name="$(parent)SkipNodeButton" text="Skip current target" inherits="ZO_DefaultButton" >
+					<Anchor point="TOPLEFT" relativeTo="$(parent)ArrowCheckButton"  relativePoint="BOTTOMLEFT" offsetX="0" offsetY="8" />
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)ArrowCheckButton"  relativePoint="BOTTOMLEFT" offsetX="148" offsetY="8" />
+					<OnClicked>
+						HarvestFarm.UpdateToNextTarget()
+					</OnClicked>
+				</Button>
+				<Button name="$(parent)RemoveNodeButton" text="Remove current target" inherits="ZO_DefaultButton" >
+					<Anchor point="TOPLEFT" relativeTo="$(parent)SkipNodeButton"  relativePoint="BOTTOMLEFT" offsetX="0" offsetY="8" />
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)SkipNodeButton"  relativePoint="BOTTOMRIGHT" offsetX="0" offsetY="8" />
+					<OnClicked>
+						HarvestFarm.RemoveTarget()
+					</OnClicked>
+				</Button>
+			</Controls>
+		</TopLevelControl>
+		<TopLevelControl name="HarvestMapInRangeMenu" inherits="ZO_RightPanelFootPrint" hidden="true">
+			<Controls>
+			</Controls>
+		</TopLevelControl>
+		<TopLevelControl name="HarvestMapColorMenu" inherits="ZO_RightPanelFootPrint" hidden="true">
+			<Controls>
+			</Controls>
+		</TopLevelControl>
+		<!-- based on Chat2Clipboard -->
+		<TopLevelControl name="HarvestDebugClipboard" mouseEnabled="true" hidden="true" tier="HIGH" level="3">
+			<Dimensions x="400" y="200" />
+			<Anchor point="CENTER" />
+
+			<Controls>
+				<Label name="$(parent)Top" font="ZoFontGame" color="FFFFFF" text="SI_HARVEST_CTRLC" horizontalAlignment="LEFT" >
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)"  relativePoint="TOPRIGHT" offsetX="4" offsetY="4" />
+				</Label>
+				<Backdrop name="$(parent)Output" inherits="ZO_EditBackdrop">
+					<Anchor point="TOPLEFT" offsetX="20" offsetY="40" />
+					<Anchor point="BOTTOMRIGHT" offsetX="-20" offsetY="-20" />
+					<Controls>
+						<EditBox name="$(parent)Box" inherits="ZO_DefaultEditForBackdrop ZO_EditDefaultText" editEnabled="false" multiLine="true" maxInputCharacters="10000">
+							<OnTextChanged>
+								self:GetParent():GetParent():SetHidden(false)
+								self:SelectAll()
+								self:TakeFocus()
+							</OnTextChanged>
+							<OnFocusLost>
+								self:GetParent():GetParent():SetHidden(true)
+							</OnFocusLost>
+						</EditBox>
+					</Controls>
+				</Backdrop>
+				
+				<Backdrop name="$(parent)Bg" integralWrapping="true">
+					<Anchor point="TOPLEFT" offsetX="-4" offsetY="-4" />
+					<Anchor point="BOTTOMRIGHT" offsetX="4" offsetY="4" />
+
+					<Edge file="EsoUI/Art/ChatWindow/chat_BG_edge.dds" edgeFileWidth="256" edgeFileHeight="256" edgeSize="32" />
+					<Center file="EsoUI/Art/ChatWindow/chat_BG_center.dds" />
+					<Insets left="32" top="32" right="-32" bottom="-32" />
+				</Backdrop>
+			</Controls>
+		</TopLevelControl>
+	</Controls>
+</GuiXml>

@@ -1,0 +1,17 @@
+## Title: |cFFAA33CraftStore|r 3.40
+## APIVersion: 100014
+## Version: 3.40
+## SavedVariables: CS_Account
+## SavedVariables: CS_Character
+## Author: AlphaLemming
+## Description: A tool for crafting research, with style and recipe tracking and new crafting interfaces.
+
+CraftStore_lang.lua
+cs_flask.lua
+cs_styles.lua
+CraftStore.lua
+CraftStore_mini.xml
+CraftStore_Flask.xml
+CraftStore_Cook_mini.xml
+CraftStore_Rune_mini.xml
+Bindings.xml
